@@ -1,0 +1,40 @@
+server:
+  port: 8080
+  contextPath: /SpringBootRestApplication
+---
+
+spring:
+  profiles.active: dev
+---
+spring:
+  profiles: dev
+  logging:
+    file: logs/dev_app.log
+    pattern:
+      console: "%d %-5level %logger : %msg%n"
+      file: "%d %-5level [%thread] %logger : %msg%n"
+    level:
+      org.springframework.web: DEBUG
+      com.springboot.app.controllers: DEBUG
+      org.hibernate: DEBUG
+  jpa:
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: jdbc:mysql://localhost:3306/testdb
+    username: testuser
+    password: testuser@123
+    driverClassName: com.mysql.jdbc.Driver
+---
+spring:
+  profiles: production
+  logging:
+    file: logs/production_app.log
+    pattern:
+      file: "%d %-5level [%thread] %logger{0} : %msg%n"
+    level:
+      org.springframework.web: WARN
+      com.springboot.app.controllers: WARN
+      org.hibernate: WARN
